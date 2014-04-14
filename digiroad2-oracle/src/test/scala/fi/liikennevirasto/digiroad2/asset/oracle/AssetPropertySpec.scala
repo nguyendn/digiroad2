@@ -1,7 +1,7 @@
 package fi.liikennevirasto.digiroad2.asset.oracle
 
 import org.scalatest._
-import fi.liikennevirasto.digiroad2.asset.{PropertyValue, AssetWithProperties}
+import fi.liikennevirasto.digiroad2.asset.{Property, PropertyValue, AssetWithProperties}
 import java.sql.SQLException
 import fi.liikennevirasto.digiroad2.user.oracle.OracleUserProvider
 import fi.liikennevirasto.digiroad2.user.User
@@ -96,6 +96,14 @@ class AssetPropertySpec extends FunSuite with Matchers with BeforeAndAfter {
     provider.updateAssetProperty(asset.id, property.publicId,  List(PropertyValue("2", Some("Linja-autojen paikallisliikenne"))))
     val restoredAsset = getTestAsset
     restoredAsset.propertyData.find(_.id == property.id).get.values should not be empty
+  }
+
+  test("Serialize/deserialize asset properties as XML") {
+    val asset = getTestAsset
+    val propertiesXml = asset.propertiesAsXML
+    val props = Property.propertiesFromXML(propertiesXml)
+    asset.propertyData.head should equal (props.head)
+    asset.propertyData.last should equal (props.last)
   }
 
   private def getTestAsset: AssetWithProperties = provider.getAssetById(TestAssetId).get
