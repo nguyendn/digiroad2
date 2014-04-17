@@ -15,7 +15,7 @@ window.AssetActionPanel = function(identifier, header, isExpanded, icon) {
         '</div>');
 
     var actionButtons = jQuery(
-        '<div class="actionButtons readOnlyModeHidden">' +
+        '<div class="actionButtons">' +
             '<div data-action="Select" class="actionButton actionButtonActive actionPanelButtonSelect">' +
             '<div class="actionPanelButtonSelectImage actionPanelButtonSelectActiveImage"></div>' +
             '</div>' +
@@ -111,6 +111,7 @@ window.AssetActionPanel = function(identifier, header, isExpanded, icon) {
 
         $.get("/api/user/roles", function(data) {
             if(_.contains(data, "viewer") === false){
+                layerGroup.append(actionButtons.hide());
                 layerGroup.append(editButtonForGroup());
             }
         });
@@ -173,7 +174,7 @@ window.AssetActionPanel = function(identifier, header, isExpanded, icon) {
             return;
         }
         if(identifier === id) {
-            layerGroup.find('.layerGroupLayers').removeClass('readOnlyModeHidden');
+            layerGroup.find('.layerGroupLayers').show();
             layerGroup.find('.layerGroupImg_unselected_'+id).addClass('layerGroupImg_selected_'+id);
             button.show();
             (function() {
@@ -191,7 +192,7 @@ window.AssetActionPanel = function(identifier, header, isExpanded, icon) {
 
                 button.removeClass('editMode').addClass('readOnlyMode').text('Siirry muokkaustilaan');
 
-                actionButtons.hide();
+                // actionButtons.hide();
                 layerGroup.find('.layerGroup').removeClass('layerGroupSelectedMode');
                 layerGroup.find('.layerGroup').removeClass('layerGroupEditMode');
                 // jQuery('.editMessage').addClass('readOnlyModeHidden');
@@ -201,7 +202,7 @@ window.AssetActionPanel = function(identifier, header, isExpanded, icon) {
         } else {
             isExpanded = false;
             readOnly = true;
-            layerGroup.find('.layerGroupLayers').addClass('readOnlyModeHidden');
+            layerGroup.find('.layerGroupLayers').hide();
             layerGroup.find('.layerGroupImg_selected_'+identifier).removeClass('layerGroupImg_selected_'+identifier);
             button.hide();
             (function() {
