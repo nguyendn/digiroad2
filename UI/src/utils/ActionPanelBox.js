@@ -69,16 +69,14 @@ window.AssetActionPanel = function(identifier, header, isExpanded, icon) {
         };
         var readMode = function () {
             readOnly = true;
-            (function() {
-                eventbus.trigger('application:readOnly', readOnly);
-                changeTool('Select');
+            eventbus.trigger('application:readOnly', readOnly);
+            changeTool('Select');
 
-                button.removeClass('editMode').addClass('readOnlyMode').text('Siirry muokkaustilaan');
+            button.removeClass('editMode').addClass('readOnlyMode').text('Siirry muokkaustilaan');
 
-                actionButtons.hide();
-                layerGroup.find('.layerGroup').removeClass('layerGroupEditMode');
-                editMessage.hide();
-            })();
+            actionButtons.hide();
+            layerGroup.find('.layerGroup').removeClass('layerGroupEditMode');
+            editMessage.hide();
             button.off().click(editMode);
         };
 
