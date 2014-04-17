@@ -125,7 +125,7 @@ window.AssetActionPanel = function(identifier, header, isExpanded, icon) {
     var bindEvents =  function() {
 
 
-        jQuery(".actionButton").on("click", function() {
+        actionButtons.find(".actionButton").on("click", function() {
             var data = jQuery(this);
             var action = data.attr('data-action');
             changeTool(action);
