@@ -25,7 +25,7 @@ window.AssetActionPanel = function(identifier, header, isExpanded, icon) {
             '</div>');
 
 
-    var editMessage = $('<div class="editMessage readOnlyModeHidden">Muokkaustila: muutokset tallentuvat automaattisesti</div>');
+    var editMessage = $('<div class="editMessage">Muokkaustila: muutokset tallentuvat automaattisesti</div>');
     var cursor = {'Select' : 'default', 'Add' : 'crosshair', 'Remove' : 'no-drop'};
 
     var handleAssetModified = function(asset) {
@@ -88,7 +88,7 @@ window.AssetActionPanel = function(identifier, header, isExpanded, icon) {
                 actionButtons.hide();
                 // layerGroup.find('.layerGroup').removeClass('layerGroupSelectedMode');
                 layerGroup.find('.layerGroup').removeClass('layerGroupEditMode');
-                editMessage.addClass('readOnlyModeHidden');
+                editMessage.hide();
             })();
             // actionButtons.hide();
             button.off().click(editMode);
@@ -114,7 +114,7 @@ window.AssetActionPanel = function(identifier, header, isExpanded, icon) {
                 layerGroup.append(editButtonForGroup());
             }
         });
-        jQuery(".container").append(editMessage);
+        jQuery(".container").append(editMessage.hide());
 
         if(isExpanded){
             layerGroup.find('.layerGroup').addClass('layerGroupSelectedMode');
@@ -165,7 +165,7 @@ window.AssetActionPanel = function(identifier, header, isExpanded, icon) {
 
         layerGroup.find('.layerGroup').addClass('layerGroupSelectedMode');
         layerGroup.find('.layerGroup').addClass('layerGroupEditMode');
-        editMessage.removeClass('readOnlyModeHidden');
+        editMessage.show();
     };
 
     var handleGroupSelect = function(id) {
@@ -222,7 +222,7 @@ window.AssetActionPanel = function(identifier, header, isExpanded, icon) {
                 actionButtons.hide();
                 layerGroup.find('.layerGroup').removeClass('layerGroupSelectedMode');
                 layerGroup.find('.layerGroup').removeClass('layerGroupEditMode');
-                editMessage.addClass('readOnlyModeHidden');
+                editMessage.hide();
                 // jQuery('.editMessage').addClass('readOnlyModeHidden');
             })();
         }
